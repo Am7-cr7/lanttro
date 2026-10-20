@@ -1,0 +1,222 @@
+/* استيراد خط Manrope من Google Fonts. لازم يكون أول سطر في الملف */
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap");
+
+/* استيراد Tailwind */
+@import "tailwindcss";
+
+/* إعدادات أساسية للصفحة: من غير مسافات، وعرض كامل، وخلفية سودا */
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+}
+
+/* الخط الأساسي للموقع كله هو Manrope */
+body {
+  background-color: #0e0e0e;
+  color: #ffffff;
+  font-family: "Manrope", system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+/* السكرول بين الأقسام يبقى ناعم لما تدوس على لينك */
+html {
+  scroll-behavior: smooth;
+}
+
+/* أي قسم ليه id بيقف تحت الناف بار شوية، عشان العنوان ما يتغطاش */
+section[id] {
+  scroll-margin-top: 90px;
+}
+
+/* ========== ظهور الأقسام مع السكرول ========== */
+
+/* القسم بيبدأ مخفي ومنزاح لتحت */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* لما القسم يدخل الشاشة، بيطلع لفوق ويبان */
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========== الزراير ========== */
+
+/* النوع 1: زرار بيتملى بالأبيض من تحت (View Projects Details) */
+.btn-fill {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate; /* عشان الخلفية البيضا تفضل جوا الزرار بس */
+  transition: color 0.4s ease, transform 0.2s ease;
+}
+
+/* الطبقة البيضا اللي بتطلع من تحت، مخفية في الأول */
+.btn-fill::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #ffffff;
+  transform: translateY(101%);
+  transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+  z-index: -1;
+  border-radius: inherit;
+}
+
+/* لما الماوس يعدي، الطبقة تطلع وتملا الزرار */
+.btn-fill:hover::before {
+  transform: translateY(0);
+}
+
+/* الكلام يبقى أسود على الخلفية البيضا */
+.btn-fill:hover {
+  color: #000000;
+}
+
+/* ضغطة خفيفة لما الزرار يتدوس */
+.btn-fill:active {
+  transform: scale(0.96);
+}
+
+/* النوع 2: زرار بسهم بيتحرك لليمين لما الماوس يعدي */
+.btn-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* السهم نفسه: بيتحرك بنعومة */
+.btn-arrow .arrow {
+  display: inline-block;
+  transition: transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* لما الماوس يعدي، السهم يتحرك لليمين والزرار يطلع شوية */
+.btn-arrow:hover .arrow {
+  transform: translateX(6px);
+}
+
+.btn-arrow:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.15);
+}
+
+.btn-arrow:active {
+  transform: scale(0.97);
+}
+
+/* النوع 3: حدود بتتوهج لما الماوس يعدي */
+.btn-glow {
+  position: relative;
+  border: 1px solid #404040;
+  transition: border-color 0.3s ease, box-shadow 0.4s ease;
+}
+
+.btn-glow:hover {
+  border-color: #ffffff;
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.25), inset 0 0 15px rgba(255, 255, 255, 0.05);
+}
+
+.btn-glow:active {
+  transform: scale(0.97);
+}
+
+/* النوع 4: خط تحت بيتمدد من الشمال لليمين لما الماوس يعدي */
+.btn-underline {
+  position: relative;
+}
+
+.btn-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 2px;
+  background: #ffffff;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.btn-underline:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* النوع 5: خلفية متدرجة بتتحرك لما الماوس يعدي */
+.btn-gradient {
+  background: linear-gradient(90deg, #ffffff, #888888, #ffffff);
+  background-size: 200% auto;
+  color: #000000;
+  transition: background-position 0.6s ease, transform 0.2s ease;
+}
+
+.btn-gradient:hover {
+  background-position: right center;
+}
+
+.btn-gradient:active {
+  transform: scale(0.97);
+}
+
+/* ========== الصور ========== */
+
+/* صورة أبيض وأسود، لما تعدي عليها الماوس تاخد ألوانها وتكبر شوية */
+.img-hover {
+  filter: grayscale(1);
+  transition: filter 0.6s ease, transform 0.6s ease;
+}
+
+.img-hover:hover {
+  filter: grayscale(0);
+  transform: scale(1.05);
+}
+
+/* ========== علامة الصح ========== */
+
+/* الخط بيترسم من أول الشكل لآخره */
+.check-path {
+  stroke-dasharray: 30;
+  stroke-dashoffset: 30;
+  animation: draw-check 0.5s ease forwards;
+}
+
+@keyframes draw-check {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ========== لينك الناف بار ========== */
+
+/* خط رفيع بيتمدد تحت الكلام لما الماوس يعدي */
+.nav-link {
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 1px;
+  background: #ffffff;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.nav-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
